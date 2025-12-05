@@ -9,9 +9,11 @@
     <title>Sanden</title>
 </head>
 <style>
-  /* Default bullets */
+ body{
+  font-family: 'Noto Sans JP';
+ }
   .swiper-pagination-bullet {
-    background: #fff; /* gray-300 */
+    background: #fff; 
     opacity: 1;
     border: 2px solid #00ADEF;
     width: 20px;
@@ -20,20 +22,20 @@
     margin: 0 8px !important;
   }
 
-  /* Active bullet */
+
   .swiper-pagination-bullet-active {
-    background: #00ADEF; /* blue-500 */
+    background: #00ADEF; 
 
     border-radius: 9999px;
   }
   #menu {
-  transform: translateY(-100%); /* hidden */
+  transform: translateY(-100%); 
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 #menu.open {
-  transform: translateY(0);   /* visible */
+  transform: translateY(0);   
   opacity: 1;
 }
 </style>
