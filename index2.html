@@ -1,684 +1,855 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <title>Sanden</title>
-    <style>
-      *{
-        margin:0;
-        padding:0;
-      }
- body{
-  font-family: 'Noto Sans JP';
- }
-  
-  .swiper-pagination-bullet {
-    background: #fff; 
-    opacity: 1;
-    border: 2px solid #00ADEF;
-    width: 20px;
-    height: 20px;
-    transition: all 0.3s ease;
-    margin: 0 8px !important;
-  }
+  <title>Sanden</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
 
-        
-  .swiper-pagination-bullet-active {
-    background: #00ADEF; 
+    body {
+      font-family: 'Noto Sans JP';
+    }
 
-    border-radius: 9999px;
-  }
+    .swiper-pagination-bullet {
+      background: #fff;
+      opacity: 1;
+      border: 2px solid #00ADEF;
+      width: 20px;
+      height: 20px;
+      transition: all 0.3s ease;
+      margin: 0 8px !important;
+    }
 
+    .swiper-pagination-bullet-active {
+      background: #00ADEF;
 
-  #menu {
-  transform: translateY(-100%); 
-  opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+      border-radius: 9999px;
+    }
+
+    #menu {
+      transform: translateY(-100%);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    #menu.open {
+      transform: translateY(0);
+      opacity: 1;
+    }
+.swiper-slide {
+  height: auto !important;
+  display: flex !important;
 }
+    .swiper-button-next-2,
+    .swiper-button-prev-2 {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 50%;
+      background: #c9caca8e;
+      color: #00ADEF !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
 
-#menu.open {
-  transform: translateY(0);   
-  opacity: 1;
-}
-/* Base style */
-.swiper-button-prev,
-.swiper-button-next {
-  width: 48px !important;
-  height: 48px !important;
-  border-radius: 50%;
-  background: #c9caca8e;
-  color: #00ADEF !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .swiper-button-next-2::after,
+    .swiper-button-prev-2::after {
+      font-family: swiper-icons;
+      font-size: 20px !important;
+      font-weight: 700;
+      text-transform: none !important;
+      letter-spacing: 0;
+      line-height: 1;
+    }
 
-/* Replace default arrow styles */
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  font-size: 20px !important;
-  font-weight: bold;
-}
+    .swiper-button-next-2::after {
+      content: 'next';
+    }
 
-@media (max-width: 640px) {
-  .swiper-button-next,.swiper-button-prev{
-    top: 10px;
-  }
-  .swiper-button-prev {
-    left: 35% !important;
-  }
-  .swiper-button-next {
-    right: 35% !important;
-  }
-}
+    .swiper-button-prev-2::after {
+      content: 'prev';
+    }
 
+    .swiper-button-next-2 {
+      right: 10px;
+    }
 
+    .swiper-button-prev-2 {
+      left: 10px;
+    }
 
-</style>
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: 50%;
+      background: #c9caca8e;
+      color: #00ADEF !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      font-size: 20px !important;
+      font-weight: bold;
+    }
+
+    :target {
+      scroll-margin-top: 80px;
+    }
+  </style>
 </head>
+
 <body>
-  <header class="fixed top-0 left-0 right-0 w-full z-50 bg-white w-full">
-     
+  <header class="fixed top-0 left-0 right-0 w-full z-[51] bg-white">
 
-<div class=" flex justify-between items-center p-4 max-w-[1280px] mx-auto ">
-  
+    <div class=" flex justify-between items-center p-4 max-w-[1280px] mx-auto ">
 
-    <div>
+      <div>
         <img src="assets/logo_dark 1.svg" alt="">
-    </div>
-    <div class="text-[24px] font-[400] flex gap-10 items-center hidden lg:flex ">
+      </div>
+      <div class="text-[24px] font-[400] flex gap-10 items-center hidden lg:flex ">
         <a href="#feature" class="cursor-pointer block">特徴</a>
         <a href="#case" class="cursor-pointer">導入事例</a>
         <a href="#lineup" class="cursor-pointer">ラインアップ</a>
         <a href="#faqs" class="cursor-pointer">FAQ</a>
         <a href="#inquiry" class="bg-[#00ADEF] px-[20px] py-[10px] text-white rounded-[30px] ">お問い合わせ</a>
-    </div>
-    <div class="lg:hidden" id="menu-btn">
-      <svg width="34" height="9" viewBox="0 0 34 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8.75 4.375C8.75 6.79688 6.71875 8.75 4.375 8.75C1.95312 8.75 0 6.79688 0 4.375C0 2.03125 1.95312 0 4.375 0C6.71875 0 8.75 2.03125 8.75 4.375ZM21.25 4.375C21.25 6.79688 19.2188 8.75 16.875 8.75C14.4531 8.75 12.5 6.79688 12.5 4.375C12.5 2.03125 14.4531 0 16.875 0C19.2188 0 21.25 2.03125 21.25 4.375ZM25 4.375C25 2.03125 26.9531 0 29.375 0C31.7188 0 33.75 2.03125 33.75 4.375C33.75 6.79688 31.7188 8.75 29.375 8.75C26.9531 8.75 25 6.79688 25 4.375Z" fill="#00ADEF"/>
-      </svg>
+      </div>
+      <div class="lg:hidden" id="menu-btn">
+        <svg width="34" height="9" viewBox="0 0 34 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8.75 4.375C8.75 6.79688 6.71875 8.75 4.375 8.75C1.95312 8.75 0 6.79688 0 4.375C0 2.03125 1.95312 0 4.375 0C6.71875 0 8.75 2.03125 8.75 4.375ZM21.25 4.375C21.25 6.79688 19.2188 8.75 16.875 8.75C14.4531 8.75 12.5 6.79688 12.5 4.375C12.5 2.03125 14.4531 0 16.875 0C19.2188 0 21.25 2.03125 21.25 4.375ZM25 4.375C25 2.03125 26.9531 0 29.375 0C31.7188 0 33.75 2.03125 33.75 4.375C33.75 6.79688 31.7188 8.75 29.375 8.75C26.9531 8.75 25 6.79688 25 4.375Z"
+            fill="#00ADEF" />
+        </svg>
+
+      </div>
 
     </div>
-
-
-  </div>
-    </header>
-    <!-- off canvas -->
-   <div class="fixed inset-0   h-fit bg-white px-4 pt-4 pb-10 z-[99999]" id="menu">
+  </header>
+  <!-- off canvas -->
+  <div class="fixed inset-0   h-fit bg-white px-4 pt-4 pb-10 z-[99999]" id="menu">
     <div class="flex justify-between items-center">
-        <img src="assets/logo_dark 1.svg" alt="">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" id="cross">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-</svg>
+      <img src="assets/logo_dark 1.svg" alt="">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        aria-hidden="true" id="cross">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
 
     </div>
     <div>
 
     </div>
-    <div class="text-[18px] font-[400] flex gap-4  flex-col pt-4 " >
-       <a href="#feature" class="cursor-pointer block nav-menu">特徴</a>
-        <a href="#case" class="cursor-pointer nav-menu">導入事例</a>
-        <a href="#lineup" class="cursor-pointer nav-menu">ラインアップ</a>
-        <a href="#faqs" class="cursor-pointer nav-menu">FAQ</a>
-        <button class="bg-[#00ADEF] px-[20px] py-[10px] text-white rounded-[30px] nav-menu ">お問い合わせ</button>
+    <div class="text-[18px] font-[400] flex gap-4  flex-col pt-4 ">
+      <a href="#feature" class="cursor-pointer block nav-menu">特徴</a>
+      <a href="#case" class="cursor-pointer nav-menu">導入事例</a>
+      <a href="#lineup" class="cursor-pointer nav-menu">ラインアップ</a>
+      <a href="#faqs" class="cursor-pointer nav-menu">FAQ</a>
+      <button class="bg-[#00ADEF] px-[20px] py-[10px] text-white rounded-[30px] nav-menu ">お問い合わせ</button>
     </div>
-   </div>
+  </div>
+   <!-- Hero -->
+  <section class="relative pb-10 pt-[76px] md:pt-[120px]">
+    <div class="flex lg:flex-row-reverse gap-5 lg:gap-[82px] justify-center flex-col">
+      <div class="relative flex justify-end w-full lg:w-[495px] h-[659px] lg:pr-5 hidden md:flex ">
+        <img src="assets/hero2.png"
+          class="w-full  md:object-cover md:object-top w-[495px] h-full hidden md:flex justify-end relative right-0"
+          alt="">
 
-<!-- Hero -->
-<section class="relative pb-10 pt-[76px] md:pt-[120px]">
- <div class="flex lg:flex-row-reverse gap-5 lg:gap-[82px] justify-center flex-col">
-    <div class="relative flex justify-end w-full lg:w-[495px] h-[659px] lg:pr-5 hidden md:flex ">
-    <img src="assets/hero2.png" class="w-full  md:object-cover md:object-top w-[495px] h-full hidden md:flex justify-end relative right-0" alt="">
-        
-    </div>
-    <img src="assets/hero-2-mobile.png" class="w-full h-[281px] md:hidden" alt="">
+      </div>
+      <img src="assets/hero-2-mobile.png" class="w-full h-[281px] md:hidden" alt="">
 
-    <div class=" flex flex-col justify-center  gap-6 md:gap-10 md:pl-5 ">
+      <div class=" flex flex-col justify-center  gap-6 md:gap-10 md:pl-5 ">
 
-        <h1 class="font-bold text-[32px] md:text-[32px]  text-black text-left leading-[125%] max-w-[303px] mx-auto md:max-w-[414px] md:mx-0">人手を増やさずに <br >売上を伸ばす<br> 自販機を使って <br class="md:hidden">
-            お土産売場を<br > <span class="bg-[#00ADEF] text-white">24時間365日営業に</span></h1>
-            <p class="md:max-w-[621px] max-w-[256px] text-left  text-black md:text-[20px]  leading-[150%] mx-auto lg:mx-0 md:mt-6">スタッフ不在の夜間や早朝でも <br>
-              「モノ」も販売できる <br class="md:hidden">
-              自動販売機（自販機）が、<br>
-                お客様の「買いたい瞬間」を逃さず
-                おみやげを提供</p>
+        <h1
+          class="font-bold text-[32px] md:text-[32px]  text-black text-left leading-[125%] max-w-[303px] mx-auto md:max-w-[414px] md:mx-0">
+          人手を増やさずに <br>売上を伸ばす<br> 自販機を使って <br class="md:hidden">
+          お土産売場を<br> <span class="bg-[#00ADEF] text-white">24時間365日営業に</span></h1>
+        <p
+          class="md:max-w-[621px] max-w-[256px] text-left  text-black md:text-[20px]  leading-[150%] mx-auto lg:mx-0 md:mt-6">
+          スタッフ不在の夜間や早朝でも <br>
+          「モノ」も販売できる <br class="md:hidden">
+          自動販売機（自販機）が、<br>
+          お客様の「買いたい瞬間」を逃さず
+          おみやげを提供</p>
 
-         <div class="w-max mx-auto flex gap-6 md:gap-10 flex-col  text-[32px] md:text-[40px] ">
-        <button class="bg-[#00ADEF] px-[24px] md:px-[48px] py-[10px]  text-white rounded-[100px] ">お問い合わせ</button>
-        <button class="bg-[#00ADEF] px-[24px] md:px-[48px] py-[10px]  text-white rounded-[100px] w-[336px]  ">資料請求</button> 
+        <div class="w-max mx-auto flex gap-6 md:gap-10 flex-col  text-[32px] md:text-[40px] ">
+          <button class="bg-[#00ADEF] px-[24px] md:px-[48px] py-[10px]  text-white rounded-[100px] ">お問い合わせ</button>
+          <button
+            class="bg-[#00ADEF] px-[24px] md:px-[48px] py-[10px]  text-white rounded-[100px] w-[336px]  ">資料請求</button>
         </div>
+      </div>
     </div>
- </div>   
-</section>
-<!-- Q-section -->
-<section class=" py-10 md:py-16">
-<h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] max-w-[207px] md:max-w-[516px]  mx-auto">QUESTION</h2>
-<p class="text-[24px] md:text-[40px] text-center">こんなお悩み <br class="md:hidden">
-  ありませんか？</p>
+  </section>
 
-<div class="flex flex-wrap  gap-5 md:gap-[32px] justify-center mx-auto min-[1024px]:flex-nowrap my-6 md:my-12 max-w-[1024px] px-4 min-[1024px]:px-0">
-    <div class="border-[2px] border-[#00ADEF] px-4 pt-10 pb-6 rounded-[20px] w-fit ">
+  <!-- Q-section -->
+  <section class=" py-10 md:py-16">
+    <h2
+      class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] max-w-[207px] md:max-w-[516px]  mx-auto">
+      QUESTION</h2>
+    <p class="text-[24px] md:text-[40px] text-center">こんなお悩み <br class="md:hidden">
+      ありませんか？</p>
+
+    <div
+      class="flex flex-wrap  gap-5 md:gap-[32px] justify-center mx-auto min-[1024px]:flex-nowrap my-6 md:my-12 max-w-[1024px] px-4 min-[1024px]:px-0">
+      <div class="border-[2px] border-[#00ADEF] px-4 pt-10 pb-6 rounded-[20px] w-fit ">
         <h3 class="font-[700] text-[24px] md:text-[25px] text-center">営業時間の制約</h3>
-        <p class="max-w-[408px] md:text-[20px] leading-[125%] mt-[10px]">閉店後や早朝にもおみやげを買いたいお客様がいるのに、スタッフを置けないため、「買い逃し」が多い気がする</p>
-    </div>  
-    
-    <div class="border-[2px] border-[#00ADEF] px-4 pt-10 pb-6 rounded-[20px] w-fit ">
+        <p class="max-w-[408px] md:text-[20px] leading-[125%] mt-[10px]">
+          閉店後や早朝にもおみやげを買いたいお客様がいるのに、スタッフを置けないため、「買い逃し」が多い気がする</p>
+      </div>
+
+      <div class="border-[2px] border-[#00ADEF] px-4 pt-10 pb-6 rounded-[20px] w-fit ">
         <h3 class="font-[700] text-[24px] md:text-[25px] text-center">人手不足・人件費の高騰</h3>
         <p class="max-w-[408px] md:text-[20px] leading-[125%] mt-[10px]">レジ要員を増やしたいが、人が採用できない<br>
-土日や連休だけ人を増やすのはコスト負担が大きい</p>
-    </div>
- 
-    <div class="border-[2px] border-[#00ADEF] px-4 pt-10 pb-6 rounded-[20px] w-fit ">
+          土日や連休だけ人を増やすのはコスト負担が大きい</p>
+      </div>
+
+      <div class="border-[2px] border-[#00ADEF] px-4 pt-10 pb-6 rounded-[20px] w-fit ">
         <h3 class="font-[700] text-[24px] md:text-[25px] text-center">売場スペースが足りない</h3>
         <p class="max-w-[408px] md:text-[20px] leading-[125%] mt-[10px] px-4 md:px-0">レジ周りや通路が狭く、新しいおみやげを置く場所がない <br>
-ポップアップや期間限定商品を試したいが、常設棚を増やせない</p>
+          ポップアップや期間限定商品を試したいが、常設棚を増やせない</p>
+      </div>
     </div>
-</div>
-</section>
-<!-- F-section -->
-<section class="py-8 md:py-16 bg-gray-100 " id="feature">
-<h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-fit mx-auto">FEATURE</h2>
-<p class="text-[24px] md:text-[40px] text-center">物販機の特徴</p>
-<p class="text-[16px] md:text-[24px] max-w-[936px] mx-auto text-start md:text-center mt-8 md:mt-16 px-4 ">冷蔵スイーツから常温のお菓子、雑貨・キャラグッズまで幅広く商品を販売できるため
-人件費を抑えながら、売上とお客様満足度を同時に高めることができます</p>
-</section>
+  </section>
+  <!-- F-section -->
+  <section class="py-8 md:py-16 bg-gray-100 " id="feature">
+    <h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-fit mx-auto">
+      FEATURE</h2>
+    <p class="text-[24px] md:text-[40px] text-center">物販機の特徴</p>
+    <p class="text-[16px] md:text-[24px] max-w-[936px] mx-auto text-start md:text-center mt-8 md:mt-16 px-4 ">
+      冷蔵スイーツから常温のお菓子、雑貨・キャラグッズまで幅広く商品を販売できるため
+      人件費を抑えながら、売上とお客様満足度を同時に高めることができます</p>
+  </section>
 
-<section class="space-y-8 md:space-y-16 bg-gray-100 pb-8 md:pb-16">
-    <div class="flex flex-col lg:flex-row max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
-        <div class="flex justify-center ">
-            <img src="assets/feature-1.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
+  <section class="space-y-8 md:space-y-16 bg-gray-100 pb-8 md:pb-16">
+    <div class="flex flex-col lg:flex-row items-center max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
+      <div class="flex justify-center ">
+        <img src="assets/feature-1.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
 
-        </div>
-        <div>   
+      </div>
+      <div>
         <div class="flex items-center gap-5">
-            <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">1</span><span class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
+          <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">1</span><span
+            class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
 
         </div>
-            <h3 class="text-[24px] md:text-[25px] font-[500] mt-2">冷蔵・保冷対応で、<br>
-            スイーツから雑貨まで 
-<span class="text-white bg-[#00ADEF]">"幅広く売れる"</span>
-            </h3>
+        <h3 class="text-[24px] md:text-[25px] font-[500] mt-2">冷蔵・保冷対応で、<br>
+          スイーツから雑貨まで
+          <span class="text-white bg-[#00ADEF]">"幅広く売れる"</span>
+        </h3>
 
-            <p class="max-w-[594px] text-[16px] md:text-[20px] mt-2">自動販売機（自販機）は、常温商品だけでなく、冷蔵・保冷が必要な商品にも対応できます。<br>
-                複数の温度帯に対応したモデルであれば、チルドスイーツ・生菓子・冷凍スイーツ・常温のおみやげまで、多様な商品を1台でまとめて販売できます。<br>
-                さらに棚の高さや構成を調整できるため、パッケージ形状が異なる商品でも無理なく陳列できます。</p>
-        </div>  
-    </div>
-
-    <div class="flex flex-col lg:flex-row-reverse max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
-        <div class="flex justify-center ">
-            <img src="assets/feature2.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
-
-        </div>
-        <div>   
-        <div class="flex items-center gap-5">
-            <span class="font-[500] text-[48px] md:text-[64px] leading-[60px] ">2</span><span class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
-
-        </div>
-            <h3 class="text-[24px] md:text-[25px] font-[500] mt-2">24時間動く
-<span class="text-white bg-[#00ADEF]">"無人スタッフ"</span>
-として、<br>
-人手不足でも売上を逃さない</h3>
-
-            <p class="max-w-[594px] text-[16px] md:text-[20px] mt-2">自動販売機（自販機）は24時間無人で稼働するため、スタッフ不在の夜間・早朝でも販売が可能です。<br>
-繁忙期やイベント時には臨時売場として増設することで、レジ待ちを緩和し、販売チャンスを最大化できます。<br>
-物販機による無人販売で、追加の人件費をかけることなく、売上と顧客満足度の向上を両立できます。</p>
-        </div>
+        <p class="max-w-[594px] text-[16px] md:text-[20px] mt-2">自動販売機（自販機）は、常温商品だけでなく、冷蔵・保冷が必要な商品にも対応できます。<br>
+          複数の温度帯に対応したモデルであれば、チルドスイーツ・生菓子・冷凍スイーツ・常温のおみやげまで、多様な商品を1台でまとめて販売できます。<br>
+          さらに棚の高さや構成を調整できるため、パッケージ形状が異なる商品でも無理なく陳列できます。</p>
+      </div>
     </div>
 
+    <div class="flex flex-col lg:flex-row-reverse   items-center max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
+      <div class="flex justify-center ">
+        <img src="assets/feature2.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
 
-    <div class="flex flex-col lg:flex-row max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
-        <div class="flex justify-center ">
-            <img src="assets/feature3.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
-
-        </div>
-        <div>   
+      </div>
+      <div>
         <div class="flex items-center gap-5">
-            <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">3</span><span class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
+          <span class="font-[500] text-[48px] md:text-[64px] leading-[60px] ">2</span><span
+            class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
 
         </div>
-            <h3 class="text-[24px] md:text-[25px] font-[500] mt-4">狭いスペースでも設置できるため、<br>
-どこでも
-<span class="text-white bg-[#00ADEF]">"売場"</span>
-に変わる</h3>
+        <h3 class="text-[24px] md:text-[25px] font-[500] mt-2">24時間動く
+          <span class="text-white bg-[#00ADEF]">"無人スタッフ"</span>
+          として、<br>
+          人手不足でも売上を逃さない
+        </h3>
 
-            <p class="max-w-[594px] text-[16px] md:text-[20px] mt-4">コンパクト設計の自動販売機（自販機）なら、通路脇・レジ横・空きスペースなど、限られた場所でも設置が可能です。<br>
-これまで活用できていなかったデッドスペースを、購入率の高いサブ売場へと転換できます。<br>
-ホテルのフロント横やミュージアムショップのレジ横など、"ついで買い"を促すスポットにも最適です。</p>
-        </div>
+        <p class="max-w-[594px] text-[16px] md:text-[20px] mt-2">自動販売機（自販機）は24時間無人で稼働するため、スタッフ不在の夜間・早朝でも販売が可能です。<br>
+          繁忙期やイベント時には臨時売場として増設することで、レジ待ちを緩和し、販売チャンスを最大化できます。<br>
+          物販機による無人販売で、追加の人件費をかけることなく、売上と顧客満足度の向上を両立できます。</p>
+      </div>
     </div>
 
-    <div class="flex flex-col lg:flex-row-reverse max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
-        <div class="flex justify-center ">
-            <img src="assets/feature4.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
+
+    <div class="flex flex-col lg:flex-row max-w-[1024px]  items-center mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
+      <div class="flex justify-center ">
+        <img src="assets/feature3.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
+
+      </div>
+      <div>
+        <div class="flex items-center gap-5">
+          <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">3</span><span
+            class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
 
         </div>
-        <div>   
+        <h3 class="text-[24px] md:text-[25px] font-[500] mt-4">狭いスペースでも設置できるため、<br>
+          どこでも
+          <span class="text-white bg-[#00ADEF]">"売場"</span>
+          に変わる
+        </h3>
+
+        <p class="max-w-[594px] text-[16px] md:text-[20px] mt-4">
+          コンパクト設計の自動販売機（自販機）なら、通路脇・レジ横・空きスペースなど、限られた場所でも設置が可能です。<br>
+          これまで活用できていなかったデッドスペースを、購入率の高いサブ売場へと転換できます。<br>
+          ホテルのフロント横やミュージアムショップのレジ横など、"ついで買い"を促すスポットにも最適です。</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row-reverse  items-center max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
+      <div class="flex justify-center ">
+        <img src="assets/feature4.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
+
+      </div>
+      <div>
         <div class="flex items-center gap-5">
-            <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">4</span><span class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
+          <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">4</span><span
+            class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
 
         </div>
 
         <h3 class="text-[24px] md:text-[25px] font-[500] mt-4">世界観をそのまま届ける <br>
-        <span class="text-white bg-[#00ADEF]">
-        "見せて売る"
-        </span>
-            
-デザインや陳列</h3>
+          <span class="text-white bg-[#00ADEF]">
+            "見せて売る"
+          </span>
 
-            <p class="max-w-[594px] text-[16px] md:text-[20px] mt-4">コラッピングや装飾によって、施設やキャラクターの世界観に合わせた売場づくりが可能です。<br>
-ショーケース仕様の物販機なら、実物をそのまま展示でき、箱菓子やキャラグッズの魅力を視覚的に訴求できます。<br>
-入口・駐車場・ロビーなど、屋内・屋外を問わず"人が集まる場所"へ売場を拡張できます。</p>
-        </div>
+          デザインや陳列
+        </h3>
+
+        <p class="max-w-[594px] text-[16px] md:text-[20px] mt-4">コラッピングや装飾によって、施設やキャラクターの世界観に合わせた売場づくりが可能です。<br>
+          ショーケース仕様の物販機なら、実物をそのまま展示でき、箱菓子やキャラグッズの魅力を視覚的に訴求できます。<br>
+          入口・駐車場・ロビーなど、屋内・屋外を問わず"人が集まる場所"へ売場を拡張できます。</p>
+      </div>
     </div>
-    <div class="flex flex-col lg:flex-row max-w-[1024px] mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
-        <div class="flex justify-center ">
-            <img src="assets/feature5.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
+    <div class="flex flex-col lg:flex-row max-w-[1024px]  items-center mx-auto gap-[13px] md:gap-20 px-4 min-[1024px]:px-0">
+      <div class="flex justify-center ">
+        <img src="assets/feature5.png" loading="lazy" class="w-[350px] h-fit rounded-[8px]" alt="">
 
-        </div>
-        <div>   
+      </div>
+      <div>
         <div class="flex items-center gap-5">
-            <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">5</span><span class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
+          <span class="font-[500] text-[48px] md:text-[64px] leading-[60px]">5</span><span
+            class="block w-[64px] h-[5px] bg-[#00ADEF]"></span>
 
         </div>
-            <h3 class="text-[24px] md:text-[25px] font-[500] mt-4">英語表示に対応しているため、<br>
-インバウンド対応も安心</h3>
+        <h3 class="text-[24px] md:text-[25px] font-[500] mt-4">英語表示に対応しているため、<br>
+          インバウンド対応も安心</h3>
 
-            <p class="max-w-[594px] text-[16px] md:text-[20px] mt-4">液晶表示付きの物販機では、英語表示に対応しており、海外のお客様にもストレスのない購入体験を提供できます。<br>
-商品説明や操作ガイドを英語化できるほか、動画を流して施設案内やイベント告知を行うことも可能です。</p>
-        </div>
+        <p class="max-w-[594px] text-[16px] md:text-[20px] mt-4">
+          液晶表示付きの物販機では、英語表示に対応しており、海外のお客様にもストレスのない購入体験を提供できます。<br>
+          商品説明や操作ガイドを英語化できるほか、動画を流して施設案内やイベント告知を行うことも可能です。</p>
+      </div>
     </div>
 
-        <div class="w-max mx-auto flex gap-6  md:gap-[64px] flex-col lg:flex-row text-[32px] md:text-[40px] ">
-        <button class="bg-[#00ADEF] px-[48px] py-[10px]  text-white rounded-[100px] ">お問い合わせ</button>
-        <button class="bg-[#00ADEF] px-[48px] py-[10px] text-white rounded-[100px] w-[336px]  ">資料請求</button> 
-        </div>
-</section>
+    <div class="w-max mx-auto flex gap-6  md:gap-[64px] flex-col lg:flex-row text-[32px] md:text-[40px] ">
+      <button class="bg-[#00ADEF] px-[48px] py-[10px]  text-white rounded-[100px] ">お問い合わせ</button>
+      <button class="bg-[#00ADEF] px-[48px] py-[10px] text-white rounded-[100px] w-[336px]  ">資料請求</button>
+    </div>
+  </section>
 
-<!-- CaseSection -->
-<section class="mt-20" id="case">
-<h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-fit mx-auto">CASE</h2>
-<p class="text-[24px] md:text-[40px] text-center">導入事例</p>
-
-    <!-- slider -->
-     <div class="relative w-full flex justify-center max-w-[1240px] mx-auto pt-[15px] mt-[30px] md:mt-0 md:p-0">
-
-      <div class="swiper w-full max-w-[1024px] overflow-hidden mt-10 md:mt-20">
-    <div class="swiper-wrapper flex pb-[60px] md:pb-[100px]  ">
-             
-                 <div class="swiper-slide h-full">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] min-h-[781px] md:min-h-[900px]  md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">ヨックモック様</h3>
-                   <img src="assets/case1.png" class="w-[400px] mx-auto rounded-[8px]" loading="lazy" alt="">
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">定番洋菓子を <br>
-                    "いつでも"買えるように</h4>
-
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">ヨックモックは、実店舗の営業時間外でもシガールをはじめとする定番クッキーを購入できる場をつくるため、池袋・サンシャインシティにロッカー付き複合型の物販機（MMV）を導入しました。オフィスワーカーやファミリー層が多く集まる立地に、自分へのご褒美から取引先への手土産までカバーするラインアップを展開し、通勤・買い物動線上で"ついで買い"を喚起しています。また、ロッカーユニットを活用することで、食べきりサイズの紙箱入り「MY YOKUMOKU」から贈答用アソートまで幅広い商品を安全に販売できるようになり、店舗スタッフを増やすことなくタッチポイントの拡大とブランド露出の向上を実現しました。</p>
-                 
-                    </div>
-
-                 </div> 
-                 <div class="swiper-slide h-full ">
-                   
-                   <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4 min-h-[781px] md:min-h-[900px] w-[343px] md:w-[500px] mx-auto  ">
-
-                   
-                    <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">姫路菓子組合様</h3>
-                   <img src="assets/case2.png" class="w-[327px] md:w-[401px] h-[247px] md:h-[300px] mx-auto rounded-[8px]" loading="lazy" alt="">
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">観光と地元菓子の魅力を<br>
-                    自販機でPR！</h4>
-
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">姫路菓子組合（34 店舗加盟）は、コロナ禍で落ち込んだ観光需要による販路縮小を補うため、ホテル日航姫路2Fフロント横にキャッシュレス専用の物販機（MMV）を導入しました。組合が機器を購入し、協賛17社の菓子を単品販売するとともに、6～7 種類を詰め合わせた限定パックを用意し、選ぶ楽しさと手軽さを両立。宿泊客はもちろん、手土産需要にも応える売場として好評を得ています。また、市長や観光関係者を招いたセレモニーを開催し、メディア露出も獲得しました。</p>
-                    </div>
-                </div>
-               
-                    <div class="swiper-slide h-full">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] min-h-[781px] md:min-h-[900px]  md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">ヨックモック様</h3>
-                   <img src="assets/case1.png" class="w-[400px] mx-auto rounded-[8px]" loading="lazy" alt="">
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">定番洋菓子を <br>
-                    "いつでも"買えるように</h4>
-
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">ヨックモックは、実店舗の営業時間外でもシガールをはじめとする定番クッキーを購入できる場をつくるため、池袋・サンシャインシティにロッカー付き複合型の物販機（MMV）を導入しました。オフィスワーカーやファミリー層が多く集まる立地に、自分へのご褒美から取引先への手土産までカバーするラインアップを展開し、通勤・買い物動線上で"ついで買い"を喚起しています。また、ロッカーユニットを活用することで、食べきりサイズの紙箱入り「MY YOKUMOKU」から贈答用アソートまで幅広い商品を安全に販売できるようになり、店舗スタッフを増やすことなくタッチポイントの拡大とブランド露出の向上を実現しました。</p>
-                 
-                    </div>
-
-                 </div> 
-                 <div class="swiper-slide h-full ">
-                   
-                   <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4 min-h-[781px] md:min-h-[900px] w-[343px] md:w-[500px] mx-auto  ">
-
-                   
-                    <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">姫路菓子組合様</h3>
-                   <img src="assets/case2.png" class="w-[327px] md:w-[401px] h-[247px] md:h-[300px] mx-auto rounded-[8px]" loading="lazy" alt="">
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">観光と地元菓子の魅力を<br>
-                    自販機でPR！</h4>
-
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">姫路菓子組合（34 店舗加盟）は、コロナ禍で落ち込んだ観光需要による販路縮小を補うため、ホテル日航姫路2Fフロント横にキャッシュレス専用の物販機（MMV）を導入しました。組合が機器を購入し、協賛17社の菓子を単品販売するとともに、6～7 種類を詰め合わせた限定パックを用意し、選ぶ楽しさと手軽さを両立。宿泊客はもちろん、手土産需要にも応える売場として好評を得ています。また、市長や観光関係者を招いたセレモニーを開催し、メディア露出も獲得しました。</p>
-                    </div>
-                </div>
-                  <div class="swiper-slide h-full">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] min-h-[781px] md:min-h-[900px]  md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">ヨックモック様</h3>
-                   <img src="assets/case1.png" class="w-[400px] mx-auto rounded-[8px]" loading="lazy" alt="">
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">定番洋菓子を <br>
-                    "いつでも"買えるように</h4>
-
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">ヨックモックは、実店舗の営業時間外でもシガールをはじめとする定番クッキーを購入できる場をつくるため、池袋・サンシャインシティにロッカー付き複合型の物販機（MMV）を導入しました。オフィスワーカーやファミリー層が多く集まる立地に、自分へのご褒美から取引先への手土産までカバーするラインアップを展開し、通勤・買い物動線上で"ついで買い"を喚起しています。また、ロッカーユニットを活用することで、食べきりサイズの紙箱入り「MY YOKUMOKU」から贈答用アソートまで幅広い商品を安全に販売できるようになり、店舗スタッフを増やすことなくタッチポイントの拡大とブランド露出の向上を実現しました。</p>
-                 
-                    </div>
-
-                 </div> 
-                 
-             
-             </div>
-                 <div class="swiper-pagination"></div>
-        </div>
-        
-                 <div class="swiper-button-next "></div>
-                  <div class="swiper-button-prev"></div>
-
-     </div>
-
-</section>
-<!-- LineUp section -->
-<section class="my-20" id="lineup">
-<h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-[216px] md:w-[360px] mx-auto">LINEUP</h2>
-<p class="text-[24px] md:text-[40px] text-center">物販機ラインアップ</p>
+  <!-- CaseSection -->
+  <section class="mt-20" id="case">
+    <h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-fit mx-auto">CASE
+    </h2>
+    <p class="text-[24px] md:text-[40px] text-center">導入事例</p>
 
     <!-- slider -->
-     <div  class="relative w-full flex justify-center max-w-[1240px] mx-auto pt-[15px] mt-[30px] md:mt-0 md:p-0" >
+    <div class="relative w-full flex justify-center max-w-[1240px] mx-auto  ">
 
-      <div class="swiper2 relative mx-auto w-full max-w-[1024px] overflow-hidden mt-10 md:mt-20">
-    <div class="swiper-wrapper flex justify-between pb-[60px] md:pb-[100px] ">
-             
-                 <div class="swiper-slide">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
-                                           <div class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]"></div>
+      <div class="swiper w-full max-w-[1024px] overflow-hidden mt-10 md:mt-20 h-auto">
+        <div class="swiper-wrapper flex pb-[60px] md:pb-[100px] !items-stretch !h-auto ">
 
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+          <div class="swiper-slide ">
 
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。</p>
-                 
-                    </div>
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px]   md:w-[500px]  mx-auto flex flex-col h-full ">
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">ヨックモック様</h3>
+              <img src="assets/case1.png" class="w-[400px] mx-auto rounded-[8px]" loading="lazy" alt="">
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">定番洋菓子を <br>
+                "いつでも"買えるように</h4>
 
-                 </div> 
-                 
-               <div class="swiper-slide">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機2</h3>
-                      <div class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]"></div>
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">
+                ヨックモックは、実店舗の営業時間外でもシガールをはじめとする定番クッキーを購入できる場をつくるため、池袋・サンシャインシティにロッカー付き複合型の物販機（MMV）を導入しました。オフィスワーカーやファミリー層が多く集まる立地に、自分へのご褒美から取引先への手土産までカバーするラインアップを展開し、通勤・買い物動線上で"ついで買い"を喚起しています。また、ロッカーユニットを活用することで、食べきりサイズの紙箱入り「MY
+                YOKUMOKU」から贈答用アソートまで幅広い商品を安全に販売できるようになり、店舗スタッフを増やすことなくタッチポイントの拡大とブランド露出の向上を実現しました。</p>
 
-                    <p class="md:text-[20px]  max-w-[722px] mt-3">説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。</p>
-                 
-                    </div>
+            </div>
 
-                 </div> 
+          </div>
+          <div class="swiper-slide  ">
 
-                  <div class="swiper-slide">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
-                                           <div class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]"></div>
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4 flex flex-col h-full w-[343px] md:w-[500px] mx-auto  ">
 
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
 
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。</p>
-                 
-                    </div>
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">姫路菓子組合様</h3>
+              <img src="assets/case2.png" class="w-[327px] md:w-[401px] h-[247px] md:h-[300px] mx-auto rounded-[8px]"
+                loading="lazy" alt="">
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">観光と地元菓子の魅力を<br>
+                自販機でPR！</h4>
 
-                 </div> 
-                 
-               <div class="swiper-slide">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機2</h3>
-                      <div class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]"></div>
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">姫路菓子組合（34
+                店舗加盟）は、コロナ禍で落ち込んだ観光需要による販路縮小を補うため、ホテル日航姫路2Fフロント横にキャッシュレス専用の物販機（MMV）を導入しました。組合が機器を購入し、協賛17社の菓子を単品販売するとともに、6～7
+                種類を詰め合わせた限定パックを用意し、選ぶ楽しさと手軽さを両立。宿泊客はもちろん、手土産需要にも応える売場として好評を得ています。また、市長や観光関係者を招いたセレモニーを開催し、メディア露出も獲得しました。
+              </p>
+            </div>
+          </div>
 
-                    <p class="md:text-[20px]  max-w-[722px] mt-3">説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。</p>
-                 
-                    </div>
+         <div class="swiper-slide ">
 
-                 </div> 
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px]   md:w-[500px]  mx-auto flex flex-col h-full ">
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">ヨックモック様</h3>
+              <img src="assets/case1.png" class="w-[400px] mx-auto rounded-[8px]" loading="lazy" alt="">
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">定番洋菓子を <br>
+                "いつでも"買えるように</h4>
 
-                  <div class="swiper-slide">
-                   
-                    <div class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto  ">
-                        <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
-                                           <div class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]"></div>
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">
+                ヨックモックは、実店舗の営業時間外でもシガールをはじめとする定番クッキーを購入できる場をつくるため、池袋・サンシャインシティにロッカー付き複合型の物販機（MMV）を導入しました。オフィスワーカーやファミリー層が多く集まる立地に、自分へのご褒美から取引先への手土産までカバーするラインアップを展開し、通勤・買い物動線上で"ついで買い"を喚起しています。また、ロッカーユニットを活用することで、食べきりサイズの紙箱入り「MY
+                YOKUMOKU」から贈答用アソートまで幅広い商品を安全に販売できるようになり、店舗スタッフを増やすことなくタッチポイントの拡大とブランド露出の向上を実現しました。</p>
 
-                   <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+            </div>
 
-                    <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。</p>
-                 
-                    </div>
+          </div>
+          <div class="swiper-slide  ">
 
-                 </div> 
-                 
-              
-             </div>
-              
-                 <div class="swiper-pagination"></div>
-       
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4 flex flex-col h-full w-[343px] md:w-[500px] mx-auto  ">
+
+
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">姫路菓子組合様</h3>
+              <img src="assets/case2.png" class="w-[327px] md:w-[401px] h-[247px] md:h-[300px] mx-auto rounded-[8px]"
+                loading="lazy" alt="">
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">観光と地元菓子の魅力を<br>
+                自販機でPR！</h4>
+
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">姫路菓子組合（34
+                店舗加盟）は、コロナ禍で落ち込んだ観光需要による販路縮小を補うため、ホテル日航姫路2Fフロント横にキャッシュレス専用の物販機（MMV）を導入しました。組合が機器を購入し、協賛17社の菓子を単品販売するとともに、6～7
+                種類を詰め合わせた限定パックを用意し、選ぶ楽しさと手軽さを両立。宿泊客はもちろん、手土産需要にも応える売場として好評を得ています。また、市長や観光関係者を招いたセレモニーを開催し、メディア露出も獲得しました。
+              </p>
+            </div>
+          </div>
+
+          <div class="swiper-slide  ">
+
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4 flex flex-col h-full w-[343px] md:w-[500px] mx-auto  ">
+
+
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">姫路菓子組合様</h3>
+              <img src="assets/case2.png" class="w-[327px] md:w-[401px] h-[247px] md:h-[300px] mx-auto rounded-[8px]"
+                loading="lazy" alt="">
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">観光と地元菓子の魅力を<br>
+                自販機でPR！</h4>
+
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">姫路菓子組合（34
+                店舗加盟）は、コロナ禍で落ち込んだ観光需要による販路縮小を補うため、ホテル日航姫路2Fフロント横にキャッシュレス専用の物販機（MMV）を導入しました。組合が機器を購入し、協賛17社の菓子を単品販売するとともに、6～7
+                種類を詰め合わせた限定パックを用意し、選ぶ楽しさと手軽さを両立。宿泊客はもちろん、手土産需要にも応える売場として好評を得ています。また、市長や観光関係者を招いたセレモニーを開催し、メディア露出も獲得しました。
+              </p>
+            </div>
+          </div>
+
 
         </div>
-           
-        <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <div class="swiper-button-next "></div>
+      <div class="swiper-button-prev"></div>
+
+    </div>
+
+  </section>
+  <!-- LineUp section -->
+  <section class="my-20" id="lineup">
+    <h2
+      class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-[216px] md:w-[360px] mx-auto">
+      LINEUP</h2>
+    <p class="text-[24px] md:text-[40px] text-center">物販機ラインアップ</p>
+
+    <!-- slider -->
+    <div class="relative w-full flex justify-center max-w-[1240px] mx-auto ">
+
+      <div class="swiper2 relative mx-auto w-full max-w-[1024px] overflow-hidden mt-10 md:mt-20 h-auto">
+        <div class="swiper-wrapper flex justify-between pb-[60px] md:pb-[100px] !items-stretch !h-auto ">
+
+          <div class="swiper-slide">
+
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto flex flex-col h-full ">
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
+              <div
+                class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]">
+              </div>
+
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">
+                説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。
+              </p>
+
+            </div>
+
+          </div>
+
+           <div class="swiper-slide">
+
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto flex flex-col h-full ">
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
+              <div
+                class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]">
+              </div>
+
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">
+                説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。
+              </p>
+
+            </div>
+
+          </div>
+
+           <div class="swiper-slide">
+
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto flex flex-col h-full ">
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
+              <div
+                class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]">
+              </div>
+
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">
+                説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。
+              </p>
+
+            </div>
+
+          </div>
+
+           <div class="swiper-slide">
+
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto flex flex-col h-full ">
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
+              <div
+                class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]">
+              </div>
+
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">
+                説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。
+              </p>
+
+            </div>
+
+          </div>
+
+           <div class="swiper-slide">
+
+            <div
+              class=" border-[2px] border-[#00ADEF] rounded-[20px] px-2 py-6 md:p-4  w-[343px] md:w-[500px]  mx-auto flex flex-col h-full ">
+              <h3 class="font-[500] text-[24px] md:text-[32px] text-center mb-2">物販機1</h3>
+              <div
+                class="block bg-[#D9D9D9] w-[327px] md:w-[406px] lg:w-[400px] h-[241px] md:h-[300px] mx-auto rounded-[8px]">
+              </div>
+
+              <h4 class="font-[500] text-[24px] md:text-[32px] text-[#00ADEF] text-center mt-2">特徴が入ります。</h4>
+
+              <p class="md:text-[24px] lg:text-[20px] min-[1024px]:text-[20px] max-w-[722px] mt-3">
+                説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。説明が入ります。
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="swiper-pagination"></div>
 
 
-     </div>
+      </div>
 
-</section> 
+      <div class="swiper-button-next-2"></div>
+      <div class="swiper-button-prev-2"></div>
 
-<!-- Faq section -->
 
- <section class="bg-[#C5EEFE] pt-10 pb-16 md:py-16" id="faqs">
+    </div>
+
+  </section>
+
+  <!--   -->
+  
+  <section class="max-w-[689px] mx-auto mb-10 px-4 md:px-0">
+    <div class="flex flex-col items-center gap-10 border">
+      
+      <div class="bg-[#D9D9D9]  w-full h-[280px] flex justify-center items-center"> 画像</div>
+      <p class="text-[13px] md:text-[15px] px-[10px] pb-10">文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。文章が入ります。</p>
+
+    </div>
+  </section>
+
+  <!-- Faq section -->
+  <section class="bg-[#C5EEFE] pt-10 pb-16 md:py-16" id="faqs">
     <div class="max-w-[1024px] mx-auto  ">
-        <h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-fit mx-auto">FAQ</h2>
-<p class="text-[24px] md:text-[40px] text-center">ご質問</p>
+      <h2 class="text-[#00ADEF] text-[40px] md:text-[64px] text-center border-b-[5px] border-[#00ADEF] w-fit mx-auto">
+        FAQ</h2>
+      <p class="text-[24px] md:text-[40px] text-center">ご質問</p>
 
-<div class="space-y-6 md:space-y-10 px-4  mt-8 md:mt-12">
+      <div class="space-y-6 md:space-y-10 px-4  mt-8 md:mt-12">
 
-         <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
-      <button class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
-        <div class="flex items-center gap-5">
-        <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span class="text-[16px] md:text-[25px] font-[500]">冷蔵・冷凍が必要な土産品（スイーツ・生菓子）も販売できますか？</span>
+        <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
+          <button
+            class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
+            <div class="flex items-center gap-5">
+              <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span
+                class="text-[16px] md:text-[25px] font-[500]">冷蔵・冷凍が必要な土産品（スイーツ・生菓子）も販売できますか？</span>
 
-        </div>
+            </div>
 
-         <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow" viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z" fill="#00ADEF"/>
-         </svg>
+            <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow"
+              viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z"
+                fill="#00ADEF" />
+            </svg>
 
-      </button>
-      <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
- 
-        <div class="flex gap-5 ">
-        <span class="text-[32px] md:text-[48px] font-[700]">A</span><p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">はい。常温・冷蔵・冷凍・非冷といった様々な温度帯に対応した自動販売機をご用意しており、商品に最適な温度帯で販売できます<br>
-また、箱菓子・チルドスイーツ・冷凍スイーツなど、複数カテゴリを1台にまとめて販売できる機種もご提案可能です。</p>
-      </div>
-    </div>
+          </button>
+          <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
+
+            <div class="flex gap-5 ">
+              <span class="text-[32px] md:text-[48px] font-[700]">A</span>
+              <p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">
+                はい。常温・冷蔵・冷凍・非冷といった様々な温度帯に対応した自動販売機をご用意しており、商品に最適な温度帯で販売できます<br>
+                また、箱菓子・チルドスイーツ・冷凍スイーツなど、複数カテゴリを1台にまとめて販売できる機種もご提案可能です。</p>
+            </div>
+          </div>
         </div>
 
         <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
-      <button class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
-        <div class="flex items-center gap-5">
-        <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span class="text-[16px] md:text-[25px] font-[500]">観光地の屋外や駐車場にも設置できますか</span>
+          <button
+            class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
+            <div class="flex items-center gap-5">
+              <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span
+                class="text-[16px] md:text-[25px] font-[500]">観光地の屋外や駐車場にも設置できますか</span>
 
-        </div>
+            </div>
 
-         <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow" viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z" fill="#00ADEF"/>
-         </svg>
+            <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow"
+              viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z"
+                fill="#00ADEF" />
+            </svg>
 
-      </button>
-      <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
- 
-        <div class="flex gap-5 ">
-        <span class="text-[32px] md:text-[48px] font-[700]">A</span><p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">はい。屋外設置に対応した物販機もございます。
-販売したい商品や設置環境を踏まえ、最適な機種や構成をご提案いたします。</p>
-      </div>
-    </div>
-        </div>
+          </button>
+          <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
 
-        <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
-      <button class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
-        <div class="flex items-center gap-5">
-        <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span class="text-[16px] md:text-[25px] font-[500]">インバウンドのお客様向けに多言語表示はできますか？</span>
-
-        </div>
-
-         <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow" viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z" fill="#00ADEF"/>
-         </svg>
-
-      </button>
-      <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
- 
-        <div class="flex gap-5 ">
-        <span class="text-[32px] md:text-[48px] font-[700]">A</span><p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">はい。液晶画面搭載の自販機では、日本語に加えて英語表示に対応可能です。
-操作案内や商品説明を英語化できるため、外国人客にもストレスのない購入体験をご提供できます。</p>
-      </div>
-    </div>
+            <div class="flex gap-5 ">
+              <span class="text-[32px] md:text-[48px] font-[700]">A</span>
+              <p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">はい。屋外設置に対応した物販機もございます。
+                販売したい商品や設置環境を踏まえ、最適な機種や構成をご提案いたします。</p>
+            </div>
+          </div>
         </div>
 
         <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
-      <button class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
-        <div class="flex items-center gap-5">
-        <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span class="text-[16px] md:text-[25px] font-[500]">自店舗のロゴやキャラクターでデザインできますか？</span>
+          <button
+            class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
+            <div class="flex items-center gap-5">
+              <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span
+                class="text-[16px] md:text-[25px] font-[500]">インバウンドのお客様向けに多言語表示はできますか？</span>
 
-        </div>
+            </div>
 
-         <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow" viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z" fill="#00ADEF"/>
-         </svg>
+            <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow"
+              viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z"
+                fill="#00ADEF" />
+            </svg>
 
-      </button>
-      <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
- 
-        <div class="flex gap-5 ">
-        <span class="text-[32px] md:text-[48px] font-[700]">A</span><p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">はい。ラッピングやデコレーションが可能で、施設ロゴやご当地キャラクターを活かしたデザインができます。
-世界観を演出しながら、施設の広告塔としても活用できる売場づくりが可能です。</p>
-      </div>
-    </div>
-        </div>
+          </button>
+          <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
 
-        <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
-      <button class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
-        <div class="flex items-center gap-5">
-        <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span class="text-[16px] md:text-[25px] font-[500]">お土産の入れ替えや在庫管理が大変そうですが、運用は難しくありませんか？</span>
-
-        </div>
-
-         <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow" viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z" fill="#00ADEF"/>
-         </svg>
-
-      </button>
-      <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
- 
-        <div class="flex gap-5 ">
-        <span class="text-[32px] md:text-[48px] font-[700]">A</span><p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">ご安心ください。クラウド連携モデルでは、売上・在庫状況を遠隔で確認できるため、補充タイミングや入れ替え判断がしやすくなります。<br>
-棚構成も商品のサイズに合わせて調整できるため、新商品や期間限定品へのスムーズな入れ替えが可能です。</p>
-      </div>
-    </div>
+            <div class="flex gap-5 ">
+              <span class="text-[32px] md:text-[48px] font-[700]">A</span>
+              <p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">はい。液晶画面搭載の自販機では、日本語に加えて英語表示に対応可能です。
+                操作案内や商品説明を英語化できるため、外国人客にもストレスのない購入体験をご提供できます。</p>
+            </div>
+          </div>
         </div>
 
         <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
-      <button class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
-        <div class="flex items-center gap-5">
-        <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span class="text-[16px] md:text-[25px] font-[500]">どの機種を選べばよいか分かりません。</span>
+          <button
+            class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
+            <div class="flex items-center gap-5">
+              <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span
+                class="text-[16px] md:text-[25px] font-[500]">自店舗のロゴやキャラクターでデザインできますか？</span>
 
-        </div>
+            </div>
 
-         <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow" viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z" fill="#00ADEF"/>
-         </svg>
+            <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow"
+              viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z"
+                fill="#00ADEF" />
+            </svg>
 
-      </button>
-      <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
- 
-        <div class="flex gap-5 ">
-        <span class="text-[32px] md:text-[48px] font-[700]">A</span><p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[1233px]">ロケーション、販売したい商品ラインナップ、温度帯、販売数量の想定などをヒアリングし、最適な機種・構成の組み合わせをご提案いたします。</p>
-      </div>
-    </div>
+          </button>
+          <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
+
+            <div class="flex gap-5 ">
+              <span class="text-[32px] md:text-[48px] font-[700]">A</span>
+              <p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">
+                はい。ラッピングやデコレーションが可能で、施設ロゴやご当地キャラクターを活かしたデザインができます。
+                世界観を演出しながら、施設の広告塔としても活用できる売場づくりが可能です。</p>
+            </div>
+          </div>
         </div>
 
         <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
-      <button class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
-        <div class="flex items-center gap-5">
-        <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span class="text-[16px] md:text-[25px] font-[500]">無人販売でも防犯面やトラブル対応は大丈夫ですか？</span>
+          <button
+            class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
+            <div class="flex items-center gap-5">
+              <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span
+                class="text-[16px] md:text-[25px] font-[500]">お土産の入れ替えや在庫管理が大変そうですが、運用は難しくありませんか？</span>
 
+            </div>
+
+            <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow"
+              viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z"
+                fill="#00ADEF" />
+            </svg>
+
+          </button>
+          <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
+
+            <div class="flex gap-5 ">
+              <span class="text-[32px] md:text-[48px] font-[700]">A</span>
+              <p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">
+                ご安心ください。クラウド連携モデルでは、売上・在庫状況を遠隔で確認できるため、補充タイミングや入れ替え判断がしやすくなります。<br>
+                棚構成も商品のサイズに合わせて調整できるため、新商品や期間限定品へのスムーズな入れ替えが可能です。</p>
+            </div>
+          </div>
         </div>
 
-         <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow" viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z" fill="#00ADEF"/>
-         </svg>  
+        <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
+          <button
+            class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
+            <div class="flex items-center gap-5">
+              <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span
+                class="text-[16px] md:text-[25px] font-[500]">どの機種を選べばよいか分かりません。</span>
 
-      </button>
-      <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
- 
-        <div class="flex gap-5 ">
-        <span class="text-[32px] md:text-[48px] font-[700]">A</span><p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">はい。物販機は無人販売を前提に設計されており、扉のロック機構や耐久性の高い筐体など、安心して運用できる仕様になっています。<br>
-さらに、売上状況や稼働状態を遠隔で確認することもできるため、トラブル発生時も素早く対応できます。<br>
-無人販売であっても、安心してお土産の販売運用が可能です。</p>
+            </div>
+
+            <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow"
+              viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z"
+                fill="#00ADEF" />
+            </svg>
+
+          </button>
+          <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
+
+            <div class="flex gap-5 ">
+              <span class="text-[32px] md:text-[48px] font-[700]">A</span>
+              <p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[1233px]">
+                ロケーション、販売したい商品ラインナップ、温度帯、販売数量の想定などをヒアリングし、最適な機種・構成の組み合わせをご提案いたします。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-[2px] border-[#00ADEF] bg-white rounded-[10px]">
+          <button
+            class="accordion-header w-full text-left px-2 md:px-6 py-4  flex justify-between items-center focus:outline-none text-[#00ADEF]">
+            <div class="flex items-center gap-5">
+              <span class="text-[32px] md:text-[48px] font-[700]">Q</span><span
+                class="text-[16px] md:text-[25px] font-[500]">無人販売でも防犯面やトラブル対応は大丈夫ですか？</span>
+
+            </div>
+
+            <svg width="49" height="29" class="min-w-[32px] max-w-[32px] md:w-[49px] md:min-w-[49px] arrow"
+              viewBox="0 0 49 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24.5 28.375C23.375 28.375 22.375 28 21.625 27.25L1.625 7.25C0 5.75 0 3.125 1.625 1.625C3.125 0 5.75 0 7.25 1.625L24.5 18.75L41.625 1.625C43.125 0 45.75 0 47.25 1.625C48.875 3.125 48.875 5.75 47.25 7.25L27.25 27.25C26.5 28 25.5 28.375 24.5 28.375Z"
+                fill="#00ADEF" />
+            </svg>
+
+          </button>
+          <div class="accordion-content hidden px-2 md:px-6 pb-4 flex flex-col gap-5 text-black">
+
+            <div class="flex gap-5 ">
+              <span class="text-[32px] md:text-[48px] font-[700]">A</span>
+              <p class="md:text-[24px] font-[400] max-w-[258px] md:max-w-[unset]">
+                はい。物販機は無人販売を前提に設計されており、扉のロック機構や耐久性の高い筐体など、安心して運用できる仕様になっています。<br>
+                さらに、売上状況や稼働状態を遠隔で確認することもできるため、トラブル発生時も素早く対応できます。<br>
+                無人販売であっても、安心してお土産の販売運用が可能です。</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-        </div>
-        
-</div>
 
     </div>
- </section>
+  </section>
 
- <section class="bg-[#00ADEF]  pt-10 pb-16 md:py-16 space-y-10 md:space-y-20 px-4 lg:px-0" id="inquiry">
+  <section class="bg-[#00ADEF]  pt-10 pb-16 md:py-16 space-y-10 md:space-y-20 px-4 lg:px-0" id="inquiry">
 
-<h2 class=" hidden md:block text-white text-[32px] md:text-[48px] border-b-[5px] border-white text-center w-fit mx-auto">お問い合わせ
-    ・資料請求</h2>
-      <h2 class="md:hidden text-white text-[32px] md:text-[48px] border-b-[5px] border-white text-center w-fit mx-auto">お問い合わせ
-    <br class="md:hidden"> 資料請求</h2>
-  <img src="assets/footer.png" class="w-[661px] mx-auto rounded-[8px]" loading="lazy" alt="">
-  <p class="text-white md:text-[24px] mx-auto text-center max-w-[1024px]">テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</p>
- 
- <div class="w-max mx-auto flex gap-6  md:gap-[64px] flex-col md:flex-row text-[32px] md:text-[40px] ">
-        <button class="bg-white px-[48px] py-[10px] text-[#00ADEF] rounded-[100px] ">お問い合わせ</button>
-        <button class="bg-white px-[48px] py-[10px] text-[#00ADEF] rounded-[100px] w-[336px]  ">資料請求</button> 
-        </div>
-</section>
-<section class="flex justify-center py-8 ">
-  <img src="assets/logo.svg" alt="">
-</section>
+    <h2
+      class=" hidden md:block text-white text-[32px] md:text-[48px] border-b-[5px] border-white text-center w-fit mx-auto">
+      お問い合わせ
+      ・資料請求</h2>
+    <h2 class="md:hidden text-white text-[32px] md:text-[48px] border-b-[5px] border-white text-center w-fit mx-auto">
+      お問い合わせ
+      <br class="md:hidden"> 資料請求
+    </h2>
+    <img src="assets/footer.png" class="w-[661px] mx-auto rounded-[8px]" loading="lazy" alt="">
+    <p class="text-white md:text-[24px] mx-auto text-center max-w-[1024px]">
+      テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+    </p>
+
+    <div class="w-max mx-auto flex gap-6  md:gap-[64px] flex-col md:flex-row text-[32px] md:text-[40px] ">
+      <button class="bg-white px-[48px] py-[10px] text-[#00ADEF] rounded-[100px] ">お問い合わせ</button>
+      <button class="bg-white px-[48px] py-[10px] text-[#00ADEF] rounded-[100px] w-[336px]  ">資料請求</button>
+    </div>
+  </section>
+  <section class="flex justify-center py-8 ">
+    <img src="assets/logo.svg" alt="">
+  </section>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
   <script>
     const swiper = new Swiper('.swiper', {
       loop: true,
       spaceBetween: 24,
-    breakpoints: {
+      breakpoints: {
 
-    320: {
-      slidesPerView: 1,
-      
-    },
+        320: {
+          slidesPerView: 1,
 
-    1024: {
-      slidesPerView: 2,
+        },
 
-    },
-    },
+        1024: {
+          slidesPerView: 2,
+
+        },
+      },
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
@@ -686,48 +857,48 @@
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
-    },
-     autoplay: {
-        delay: 3000, 
-        disableOnInteraction: false, 
-        pauseOnMouseEnter: true, 
-    },
+      },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
     });
     const swiper2 = new Swiper('.swiper2', {
       loop: true,
       spaceBetween: 24,
-    breakpoints: {
+      breakpoints: {
 
-    320: {
-      slidesPerView: 1,
-      
-    },
+        320: {
+          slidesPerView: 1,
 
-    1024: {
-      slidesPerView: 2,
+        },
 
-    },
-    },
+        1024: {
+          slidesPerView: 2,
+
+        },
+      },
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
       },
 
-       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-     autoplay: {
-        delay: 3000, 
-        disableOnInteraction: false, 
-        pauseOnMouseEnter: true, 
-    },
-    }); 
+      navigation: {
+        nextEl: '.swiper-button-next-2',
+        prevEl: '.swiper-button-prev-2',
+      },
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+    });
 
-       const headers = document.querySelectorAll('.accordion-header');
-      const menu=document.getElementById('menu');
+    const headers = document.querySelectorAll('.accordion-header');
+    const menu = document.getElementById('menu');
     headers.forEach(header => {
-      const arrow=header.querySelector('.arrow');
+      const arrow = header.querySelector('.arrow');
       header.addEventListener('click', () => {
         const content = header.nextElementSibling;
         content.classList.toggle('hidden');
@@ -735,24 +906,24 @@
       });
     })
 
-    const menubtn= document.getElementById('menu-btn');
-    menubtn.addEventListener('click',()=>{
-        menu.classList.toggle('open');
+    const menubtn = document.getElementById('menu-btn');
+    menubtn.addEventListener('click', () => {
+      menu.classList.toggle('open');
     }
     )
 
-    const cross =document.getElementById('cross');
-    cross.addEventListener('click',()=>{
-        menu.classList.toggle('open');
+    const cross = document.getElementById('cross');
+    cross.addEventListener('click', () => {
+      menu.classList.toggle('open');
     })
 
-   const menuLinks = document.querySelectorAll('.nav-menu');
+    const menuLinks = document.querySelectorAll('.nav-menu');
 
-menuLinks.forEach(link => {
-  link.addEventListener('click', () => {
-menu.classList.toggle('open');
-  });
-});
+    menuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.toggle('open');
+      });
+    });
   </script>
 </body>
 </html>
